@@ -2,18 +2,18 @@
 	require_once('../database/dataaccess.php');
 	//session_start();
 
-	/*function getByID($id){
+	function getplasmadonorid($id){
 		$conn = dbConnection();
 
 		if(!$conn){
 			echo "DB connection error";
 		}
 
-		$sql = "select * from users where id={$id}";
+		$sql = "select * from plasmadonorreg where id={$id}";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		return $row;
-	}*/
+	}
 
 
 
@@ -216,21 +216,22 @@
 		}
 	}
 
-
-	/*function update($user){
+	//update
+	function updateplasmadonor($user){
 		$conn = dbConnection();
 		if(!$conn){
 			echo "DB connection error";
 		}
 
-		$sql = "update users set username='{$user['username']}', password='{$user['password']}', email='{$user['email']}' where id={$user['id']}";
-
-		if(mysqli_query($conn, $sql)){
+		$sql = "update plasmadonorreg set name='{$user['name']}', email='{$user['email']}', address='{$user['address']}', phone='{$user['phone']}', gender='{$user['gender']}', bloodgroup='{$user['bloodgroup']}', plasmadonationdate='{$user['plasmadonationdate']}', time='{$user['time']}' where name='{$user['name']}'";
+		$result=mysqli_query($conn, $sql);
+		//$user=mysqli_fetch_assoc($result);
+		if($result){
 			return true;
 		}else{
 			return false;
 		}
-	}*/
+	}
 	function checkusername($username)
 	{
 		$conn = dbConnection();
@@ -349,7 +350,64 @@
 
 		return $users;
 	}
+
+	function searchdatacovid($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from covidreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+
 	
+	function searchdataplasmadonor($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from plasmadonorreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+
+
+	function searchdatadoctor($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from doctorreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+
+
 	//count
 	function countblood(){
 		$conn = dbConnection();
