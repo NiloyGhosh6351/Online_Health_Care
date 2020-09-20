@@ -24,36 +24,43 @@
 			if($status && $user['usertype']=='Admin')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/home.php');
 			}
 			elseif($status && $user['usertype']=='Doctor')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/doctoruser.php');
 			}
 			elseif($status && $user['usertype']=='Patient')
 			{
 				$_SESSION['username'] = $username;
-				header('location: ../views/patient.php');
+				setcookie('username',$username, time()+3600, '/');
+				header('location: ../views/patienthome.php');
 			}
 			elseif($status && $user['usertype']=='Plasmadonor')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/plasmadonorhome.php');
 			}
 			elseif($status && $user['usertype']=='Plasmareceiver')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/plasmareceiverhome.php');
 			}
 			elseif($status && $user['usertype']=='Blooddonor')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/blooddonor.php');
 			}
 			elseif($status && $user['usertype']=='Bloodreceiver')
 			{
 				$_SESSION['username'] = $username;
+				setcookie('username',$username, time()+3600, '/');
 				header('location: ../views/bloodreceiver.php');
 			}
 			else

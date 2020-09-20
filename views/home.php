@@ -26,8 +26,9 @@
 			</ul>
 			
 			</li>
-			<li class="menu_item"><a href="#">Feedback</a></li>
+			<li class="menu_item"><a href="main.php">Logout</a></li>
 		</ul>
+		
 	</nav>
 	
 	<h1 class="h1">Welcome <br> <?=$_SESSION['username']?></h1> 
