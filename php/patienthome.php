@@ -29,6 +29,8 @@ require_once('../service/userservice.php');
 		</ul>
 	</nav>
 
+	
+
 <div class="reg">
 	<form action="../php/usercontrollerpatient.php" method="post">
 	
@@ -112,6 +114,10 @@ require_once('../service/userservice.php');
 		
 		
 	</table>
+
+
+
+
 	
 	
 	
