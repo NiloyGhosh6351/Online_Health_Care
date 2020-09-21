@@ -2,43 +2,32 @@
 	require_once('../php/sessionheader.php');
 	require_once('../service/userservice.php');
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>Plasma Receiver</title>
-	<link rel="stylesheet" href="../css/plasmareceiver.css">
-	<script type="text/javascript" src="../js/search.js"></script>
+	<title>Plasma Donor</title>
+	<link rel="stylesheet" href="../css/covid.css">
 
-	
-	
+	<script type="text/javascript" src="../js/covid.js"></script>
 </head>
 <body>
-	
-	
 	<nav class="nav">
 		
 		<ul class="menu">
-			<li class="menu_item"><a href="plasmareceiverhome.php">Home</a></li>
-			
-			
-			
-			<li class="menu_item"><a href="plasmareceiver.php">Plasma Receiver</a></li>
+		<li class="menu_item"><a href="plasmareceiverhome.php">Home</a></li>
+		    <li class="menu_item"><a href="covidhome.php">Covid 19</a></li>
+			<li class="menu_item"><a href="covid.php">Apply Patient</a></li>
 			<li class="menu_item"><a href="#">Conversation</a></li>
 		</ul>
 	</nav>
 
-
 <br><br>
-
 <input type="text" id="name" name="name" onkeyup="load()">
 <h3>Plasma Receiver list</h3><br>
-<div id="searchdata"></div><br><br>
+<div id="searchcovid"></div><br><br>
 
-
-
-	<table id="plasmareceivertable" border="1">
+	<table id="covidtable" border="1">
 		<tr>
 			<td>ID</td>
 			<td>Name</td>
@@ -47,12 +36,12 @@
 			<td>Phone</td>
 			<td>Gender</td>
 			<td>Blood Group</td>
-			<td>Plasmareceiver Date</td>
+			<td>Covidtesting Date</td>
 			<td>Time</td>
 		</tr>
 
 		<?php  
-			$users = getallplasmareceiver();
+			$users = getcovidtesting();
 			for ($i=0; $i != count($users); $i++) {  ?>
 		<tr>
 			<td><?=$users[$i]['id']?></td>
@@ -62,7 +51,7 @@
 			<td><?=$users[$i]['phone']?></td>
 			<td><?=$users[$i]['gender']?></td>
 			<td><?=$users[$i]['bloodgroup']?></td>
-			<td><?=$users[$i]['plasmareceiverdate']?></td>
+			<td><?=$users[$i]['covidtestingdate']?></td>
 			<td><?=$users[$i]['time']?></td>
 			<!--<td>
 				<a href="edit.php?id=<?=$users[$i]['id']?>">Edit</a> |
@@ -73,10 +62,6 @@
 		<?php } ?>
 		
 	</table>
-
-	
 		
-	
-	
 </body>
 </html>

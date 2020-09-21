@@ -25,12 +25,11 @@
 
 <br><br>
 
-<input type="text" name="">
-<input type="button" name="" value="Search"><br><br>
-
+<input type="text" id="name" name="name" onkeyup="load()">
 <h3>Plasma Donor list</h3><br>
+<div id="searchdonor"></div><br><br>
 
-	<table border="1">
+	<table  id="plasmadonationtable"  border="1">
 		<tr>
 			<td>ID</td>
 			<td>Name</td>

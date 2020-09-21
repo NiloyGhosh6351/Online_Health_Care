@@ -1,3 +1,8 @@
+<?php
+	require_once('../php/sessionheader.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,14 +20,15 @@
 	<nav class="nav">
 		
 		<ul class="menu">
-			<li class="menu_item"><a href="plasmadonorhome.php">Home</a></li>
-			
-			
-			
+			<li class="menu_item"><a href="plasmareceiverhome.php">Home</a></li>
 			<li class="menu_item"><a href="plasmareceiver.php">Plasma Receiver</a></li>
+			<li class="menu_item"><a href="covidhome.php">Covid 19</a></li>
 			<li class="menu_item"><a href="#">Conversation</a></li>
+			<li class="menu_item"><a href="main.php">Logout</a></li>
 		</ul>
 	</nav>
+
+	<h1 class="h1">Welcome <br> <?=$_SESSION['username']?></h1> 
 	
 <div class="reg">
 	<form action="../php/usercontrollerreceiver.php" method="post">
@@ -73,6 +79,32 @@
 	</form>
 
 </div>
+</div>
+<?php
+	require_once('../service/userservice.php');
+	$result=countblood();
+	if(count($result)>0)
+	{
+	$data="<table border=1>
+		<tr>
+			<td>Blood Group </td>
+			<td>Total Number</td>
+		</tr>";
+ 		$n=0;
+		while (count($result)>$n) 
+		{
+			$data .="<tr>
+					<td>{$result[$n]['bloodgroup']}</td>
+					<td>{$result[$n]['totalblood']}</td>
+			
+			</tr>";
+			$n=$n+1;
+		}
+		$data .= "</table>";
+
+		echo $data;
+	}
+?>
 	
 </body>
 </html>
