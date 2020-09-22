@@ -1,8 +1,8 @@
 function validdate()
 {
-	var date=document.getElementById('plasmadonationdate').value;
+	var date=document.getElementById('covidtestingdate').value;
 	var xhttp = new XMLHttpRequest();
-			xhttp.open('POST', '../php/test.php', true);
+			xhttp.open('POST', '../php/covidtest.php', true);
 			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			xhttp.send('date='+date);
 
@@ -43,12 +43,13 @@ function combo()
 	}
 }
 
+
 function load()
 {
 	var name = document.getElementById('name').value;
 	var xhttp = new XMLHttpRequest();
 	//xhttp.open('GET', 'abc.php?name='+name, true);
-	xhttp.open('POST', '../php/plasmadonorsearch.php', true);
+	xhttp.open('POST', '../php/covidsearch.php', true);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send('name='+name);
 	xhttp.onreadystatechange = function ()
@@ -57,17 +58,17 @@ function load()
 		{
 			if(this.responseText != "")
 			{
-				document.getElementById('searchdonor').innerHTML = this.responseText;
+				document.getElementById('searchcovid').innerHTML = this.responseText;
 				//alert(this.responseText);
 			}
 			else
 			{
-				document.getElementById('searchdonor').innerHTML = "";
+				document.getElementById('searchcovid').innerHTML = "";
 			}
 			
 		}	
 	}
-	document.getElementById('plasmadonationtable').innerHTML = "";	
+	document.getElementById('covidtable').innerHTML = "";	
 	
 }
 

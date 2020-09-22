@@ -18,7 +18,7 @@
 		<li class="menu_item"><a href="plasmareceiverhome.php">Home</a></li>
 		    <li class="menu_item"><a href="covidhome.php">Covid 19</a></li>
 			<li class="menu_item"><a href="covid.php">Apply Patient</a></li>
-			<li class="menu_item"><a href="#">Conversation</a></li>
+		
 		</ul>
 	</nav>
 

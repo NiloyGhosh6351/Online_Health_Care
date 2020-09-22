@@ -1,5 +1,6 @@
 <?php
 	require_once('../database/dataaccess.php');
+	//session_start();
 
 	/*function getByID($id){
 		$conn = dbConnection();
@@ -13,6 +14,27 @@
 		$row = mysqli_fetch_assoc($result);
 		return $row;
 	}*/
+
+
+
+	function getcovidtestingdate($date){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "SELECT * FROM `covidreg` WHERE covidtestingdate='{$date}'";
+
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
 
 	function getreceiverdate($date){
 		$conn = dbConnection();
@@ -52,6 +74,7 @@
 		return $users;
 	}
 
+	
 	function getallplasmadonor(){
 		$conn = dbConnection();
 
@@ -88,6 +111,62 @@
 		return $users;
 	}
 
+	function getcovidtesting(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from covidreg";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+		}
+
+	function getallpatient(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from patientreg";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+	function getdoctor(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from doctorreg inner join registration on doctorreg.username=registration.username";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+		}
+
+
+
 	function validate($user){
 		$conn = dbConnection();
 
@@ -114,6 +193,22 @@
 		}
 
 		$sql = "insert into registration values('{$user['name']}','{$user['username']}','{$user['email']}','{$user['password']}','{$user['dateofbirth']}','{$user['gender']}','{$user['bloodgroup']}','{$user['usertype']}' )";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	//doctoradd
+	function insertdoctorreg($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into registration values('{$user['name']}','{$user['username']}','{$user['email']}','{$user['password']}','{$user['dateofbirth']}','{$user['gender']}','{$user['bloodgroup']}','Doctor' )";
 		if(mysqli_query($conn, $sql)){
 			return true;
 		}else{
@@ -188,7 +283,165 @@
 			return false;
 		}
 	}
+
+
+	function insertcovidtesting($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into covidreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}','{$user['covidtestingdate']}','{$user['time']}')";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+		function insertpatient($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into patientreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}')";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+		function insertdoctor($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into doctorreg values('','{$user['address']}','{$user['phone']}','{$user['degree']}','{$user['username']}')";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	//search
+	function searchdatab($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from plasmareceiverreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+		//search
+	function searchplasmadonor($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from plasmadonorreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+	//search
+	function searchcovid($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from covidreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
 	
-	
+	//count
+	function countblood(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "SELECT COUNT(bloodgroup) as 'totalblood',bloodgroup FROM plasmadonorreg GROUP BY bloodgroup";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+	//appoint
+	function appointdoctor($id,$date)
+	{
+		$conn = dbConnection();
+
+		if(!$conn)
+		{
+			echo "DB connection error";
+		}
+		$username=$_SESSION['username'] ;
+		$sql1="select count(*) as 'total' from appoint where doctorid='{$id}' and appointdate='{$date}'";
+		$result1=mysqli_query($conn,$sql1);
+		$row1 = mysqli_fetch_assoc($result1);
+		$parse1=(int)($row1['total']);
+			if ($parse1<=2)
+			{
+				$sql2="select * from registration where username='{$username}'";
+				$result2=mysqli_query($conn,$sql2);
+				$row2 = mysqli_fetch_assoc($result2);
+				if($username!==$row2)
+				{
+					$sql = "insert into appoint values('{$id}','{$username}','{$date}')";
+					if(mysqli_query($conn, $sql))
+					{
+						return "Appointment Sucessful";
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}	
+			}
+			else
+			{
+				return "Select another date";
+			}
+			
+	}
 
 ?>
