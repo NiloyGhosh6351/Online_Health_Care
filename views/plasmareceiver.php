@@ -4,9 +4,8 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<title>Plasma Receiver</title>
 	<link rel="stylesheet" href="../css/plasmareceiver.css">
 	<script type="text/javascript" src="../js/search.js"></script>
@@ -64,10 +63,10 @@
 			<td><?=$users[$i]['bloodgroup']?></td>
 			<td><?=$users[$i]['plasmareceiverdate']?></td>
 			<td><?=$users[$i]['time']?></td>
-			<!--<td>
-				<a href="edit.php?id=<?=$users[$i]['id']?>">Edit</a> |
-				<a href="delete.php?id=<?=$users[$i]['id']?>">Delete</a> 
-			</td>-->
+			<td>
+				<a href="editplasmareceiver.php?id=<?=$users[$i]['id']?>">Edit</a> |
+				<a href="deleteplasmareceiver.php?id=<?=$users[$i]['id']?>">Delete</a> 
+			</td>
 		</tr>
 
 		<?php } ?>

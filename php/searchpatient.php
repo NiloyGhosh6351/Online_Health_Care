@@ -4,7 +4,7 @@
 
 	
 	$name=$_POST['name'];
-	$result = searchdatab($name);
+	$result = searchdatapatient($name);
 	if(count($result)>0)
 	{
 	$data="<table border=1>
@@ -16,8 +16,6 @@
 			<td>Phone</td>
 			<td>Gender</td>
 			<td>Blood Group</td>
-			<td>Plasmadonation Date</td>
-			<td>Time</td>
 		</tr>";
  		$n=0;
 		while (count($result)>$n) 
@@ -30,8 +28,6 @@
 					<td>{$result[$n]['phone']}</td>
 					<td>{$result[$n]['gender']}</td>
 					<td>{$result[$n]['bloodgroup']}</td>
-					<td>{$result[$n]['plasmareceiverdate']}</td>
-					<td>{$result[$n]['time']}</td>
 			
 			</tr>";
 			$n=$n+1;

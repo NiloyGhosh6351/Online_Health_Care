@@ -2,9 +2,8 @@
 require_once('../service/userservice.php');
  ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<title>Patient Management</title>
 	<link rel="stylesheet" href="../css/patienthome.css">
 	<link rel="stylesheet" href="../css/patientreg.css">
@@ -32,10 +31,10 @@ require_once('../service/userservice.php');
 	<form action="../php/usercontrollerpatient.php" method="post">
 	
 	<lable>Name</lable><br>
-	<input type="text" id="name" name="name" placeholder="Enter Your Name" Class="name"><h4 id="namemsg"></h4><br><br>
+	<input type="text" id="name" name="name" placeholder="Enter Your Name" Class="name" onkeyup="validatename()"><h4 id="namemsg"></h4><br><br>
 	
 	<lable>Email</lable><br>
-	<input type="email" id="email" name="email" placeholder="Enter your email Adress" class="name"><h4 id="emailmsg"></h4><br><br>
+	<input type="email" id="email" name="email" placeholder="Enter your email Adress" class="name" onkeyup="validateemail()"><h4 id="emailmsg"></h4><br><br>
 	
 	<lable>Adress</lable><br>
 	<input type="text" id="address" name="address" placeholder="Enter Your Address" Class="name"><br><br>
@@ -44,9 +43,9 @@ require_once('../service/userservice.php');
 	<input type="number" id="phone" name="phone" placeholder="Enter Your Phone Number" Class="name"><br><br>
 
 		<lable>Gender</lable><br>
-	<input type="radio" id="male" name="gender" class="ma" value="Male">Male
-	<input type="radio" id="female" name="gender" class="ma" value="Female">Female
-	<input type="radio" id="others" name="gender" class="ma" value="Others">Others<br><h4 id="gendermsg"></h4><br>
+	<input type="radio" id="male" name="gender" class="ma" value="Male" onclick="validategender()">Male
+	<input type="radio" id="female" name="gender" class="ma" value="Female" onclick="validategender()">Female
+	<input type="radio" id="others" name="gender" class="ma" value="Others" onclick="validategender()">Others<br><h4 id="gendermsg"></h4><br>
 
 		<lable>Blood Group</lable><br>
 	<select id="bloodgroup" name="bloodgroup" class="name" required>
@@ -105,7 +104,7 @@ require_once('../service/userservice.php');
 			<td><?=$users[$i]['gender']?></td>
 			<td><?=$users[$i]['degree']?></td>
 			<td><input type="date" name="date" id=<?='"date'.$users[$i]['id'].'"'?>></td>
-			<td><input type="button" name="button"  value="Appoint" onclick=<?='"load('.$users[$i]['id'].')"'?> id=<?='"'.$users[$i]['id'].'"'?>></td>
+			<td><input type="button" name="button"  value="Appoint" onclick=<?='"loadbyid('.$users[$i]['id'].')"'?> id=<?='"'.$users[$i]['id'].'"'?>></td>
 		</tr>
 
 		<?php } ?>

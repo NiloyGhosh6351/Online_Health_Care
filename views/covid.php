@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<title>Plasma Donor</title>
 	<link rel="stylesheet" href="../css/covid.css">
 
@@ -56,10 +55,10 @@
 			<td><?=$users[$i]['bloodgroup']?></td>
 			<td><?=$users[$i]['covidtestingdate']?></td>
 			<td><?=$users[$i]['time']?></td>
-			<!--<td>
-				<a href="edit.php?id=<?=$users[$i]['id']?>">Edit</a> |
-				<a href="delete.php?id=<?=$users[$i]['id']?>">Delete</a> 
-			</td>-->
+			<td>
+				<a href="editcovid.php?id=<?=$users[$i]['id']?>">Edit</a> |
+				<a href="deletecovid.php?id=<?=$users[$i]['id']?>">Delete</a> 
+			</td>
 		</tr>
 
 		<?php } ?>

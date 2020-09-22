@@ -8,9 +8,8 @@ if (isset($_POST['error'])) {
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<title>Registration Form</title>
 	<link rel="stylesheet" href="../css/reg.css">
 	<link rel="stylesheet" href="../css/main.css">
