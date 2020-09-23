@@ -15,6 +15,44 @@
 		return $row;
 	}
 
+	function getplasmareceiverid($id){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from plasmareceiverreg where id={$id}";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+		return $row;
+	}
+	function getcovidid($id){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from covidreg where id={$id}";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+		return $row;
+	}
+
+	function getdoctorid(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+		$username=$_SESSION['username'] ;
+		$sql = "select * from doctorreg where username='{$username}'";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+		return $row['id'];
+	}
+
 
 
 	function getcovidtestingdate($date){
@@ -166,6 +204,24 @@
 		}
 
 
+		function getpatient($date,$id){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from patientreg inner join appoint on patientreg.username=appoint.username where appointdate='{$date}' and doctorid={$id}";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+		}
+
 
 	function validate($user){
 		$conn = dbConnection();
@@ -223,15 +279,90 @@
 			echo "DB connection error";
 		}
 
-		$sql = "update plasmadonorreg set name='{$user['name']}', email='{$user['email']}', address='{$user['address']}', phone='{$user['phone']}', gender='{$user['gender']}', bloodgroup='{$user['bloodgroup']}', plasmadonationdate='{$user['plasmadonationdate']}', time='{$user['time']}' where name='{$user['name']}'";
-		$result=mysqli_query($conn, $sql);
-		//$user=mysqli_fetch_assoc($result);
-		if($result){
+		$sql = "update plasmadonorreg set name='{$user['name']}', email='{$user['email']}', address='{$user['address']}', phone='{$user['phone']}', gender='{$user['gender']}', bloodgroup='{$user['bloodgroup']}', plasmadonationdate='{$user['plasmadonationdate']}', time='{$user['time']}' where id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
 			return true;
 		}else{
 			return false;
 		}
 	}
+
+	function updateplasmareceiver($user){
+		$conn = dbConnection();
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "update plasmareceiverreg set name='{$user['name']}', email='{$user['email']}', address='{$user['address']}', phone='{$user['phone']}', gender='{$user['gender']}', bloodgroup='{$user['bloodgroup']}', plasmareceiverdate='{$user['plasmareceiverdate']}', time='{$user['time']}' where id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function updatecovid($user){
+		$conn = dbConnection();
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "update covidreg set name='{$user['name']}', email='{$user['email']}', address='{$user['address']}', phone='{$user['phone']}', gender='{$user['gender']}', bloodgroup='{$user['bloodgroup']}', covidtestingdate='{$user['covidtestingdate']}', time='{$user['time']}' where id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+	///delete
+	function deleteplasmadonor($user)
+	{
+		$conn = dbConnection();
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "DELETE FROM plasmadonorreg WHERE id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function deleteplasmareceiver($user)
+	{
+		$conn = dbConnection();
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "DELETE FROM plasmareceiverreg WHERE id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function deletecovid($user)
+	{
+		$conn = dbConnection();
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "DELETE FROM covidreg WHERE id={$user['id']}";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 	function checkusername($username)
 	{
 		$conn = dbConnection();
@@ -308,8 +439,8 @@
 		if(!$conn){
 			echo "DB connection error";
 		}
-
-		$sql = "insert into patientreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}')";
+		$username=$_SESSION['username'];
+		$sql = "insert into patientreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}','{$username}')";
 		if(mysqli_query($conn, $sql)){
 			return true;
 		}else{
@@ -342,6 +473,23 @@
 		}
 
 		$sql = "select * from plasmareceiverreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+	function searchdatapatient($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from patientreg where name like '%{$name}%'";
 		$users = [];
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result)){
@@ -396,7 +544,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "select * from doctorreg where name like '%{$name}%'";
+		$sql = "select * from doctorreg inner join registration on doctorreg.username=registration.username where name like '%{$name}%'";
 		$users = [];
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result)){
@@ -416,7 +564,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "SELECT COUNT(bloodgroup) as 'totalblood',bloodgroup FROM plasmareceiverreg GROUP BY bloodgroup";
+		$sql = "SELECT COUNT(bloodgroup) as 'totalblood',bloodgroup FROM plasmadonorreg GROUP BY bloodgroup";
 		$users = [];
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result)){
@@ -442,27 +590,173 @@
 			if ($parse1<=2)
 			{
 				$sql2="select * from registration where username='{$username}'";
+				//return $sql2;
 				$result2=mysqli_query($conn,$sql2);
 				$row2 = mysqli_fetch_assoc($result2);
-				if(!$username=$row2)
-				{
-					$sql = "insert into appoint values('{$id}','{$username}','{$date}')";
+				$sql = "insert into appoint values('{$id}','{$username}','{$date}')";
 					if(mysqli_query($conn, $sql))
 					{
 						return "Appointment Sucessful";
-						return true;
 					}
 					else
 					{
 						return false;
 					}
-				}	
+				/*if($row2['username']!==$username)
+				{
+					
+				}*/	
 			}
 			else
 			{
 				return "Select another date";
 			}
 			
+	}
+
+
+	//count patient
+	function countpatient($id,$date)
+	{
+		$conn = dbConnection();
+
+		if(!$conn)
+		{
+			echo "DB connection error";
+		}
+		$sql="select count(*) as 'total' from appoint where doctorid='{$id}' and appointdate='{$date}'";
+		$result1=mysqli_query($conn,$sql);
+		$row1 = mysqli_fetch_assoc($result1);
+		return $row1['total'];
+	}
+
+
+
+	//blood
+
+
+
+    function getbloodreceiverdate($date){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "SELECT * FROM `bloodreceiverreg` WHERE bloodreceiverdate='{$date}'";
+
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+
+	function getallblooddonor(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from blooddonorreg";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+
+
+	function getallbloodreceiver(){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from bloodreceiverreg";
+		$result = mysqli_query($conn, $sql);
+		$users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+	//blooddonor
+	function insertblooddonor($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into blooddonorreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}','{$user['blooddonationdate']}','{$user['time']}')";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function insertbloodreceiver($user){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "insert into bloodreceiverreg values('','{$user['name']}','{$user['email']}','{$user['address']}','{$user['phone']}','{$user['gender']}','{$user['bloodgroup']}','{$user['bloodreceiverdate']}','{$user['time']}')";
+		if(mysqli_query($conn, $sql)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function receiversearchdata($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from bloodreceiverreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
+	}
+
+	function donorsearchdata($name){
+		$conn = dbConnection();
+
+		if(!$conn){
+			echo "DB connection error";
+		}
+
+		$sql = "select * from blooddonorreg where name like '%{$name}%'";
+		$users = [];
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+		}
+
+		return $users;
 	}
 
 ?>

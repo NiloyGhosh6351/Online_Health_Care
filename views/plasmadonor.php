@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<title>Plasma Donor</title>
 	<link rel="stylesheet" href="../css/plasmadonor.css">
 
@@ -57,10 +56,10 @@
 			<td><?=$users[$i]['bloodgroup']?></td>
 			<td><?=$users[$i]['plasmadonationdate']?></td>
 			<td><?=$users[$i]['time']?></td>
-			<!--<td>
+			<td>
 				<a href="editplasmadonor.php?id=<?=$users[$i]['id']?>">Edit</a> |
 				<a href="deleteplasmadonor.php?id=<?=$users[$i]['id']?>">Delete</a> 
-			</td>-->
+			</td>
 		</tr>
 
 		<?php } ?>

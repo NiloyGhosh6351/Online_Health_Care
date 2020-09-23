@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<title>Blood Receiver</title>
 	<link rel="stylesheet" href="../css/main.css">
 

@@ -3,9 +3,8 @@
 	require_once('../service/userservice.php');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<title>Patient Management</title>
 	<link rel="stylesheet" href="../css/patient.css">
 	<script type="text/javascript" src="../js/patientsearch.js"></script>
